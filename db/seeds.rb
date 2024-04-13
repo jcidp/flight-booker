@@ -7,3 +7,17 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+%w[LAX MEX MTY NYC SFO SXF CUN LHR CDG HND].each do |airport|
+  Airport.find_or_create_by!(code: airport)
+end
+
+Airport.all.each do |departing_airport|
+  Airport.all.each do |arrival_airport|
+    next if departing_airport == arrival_airport
+    Flight.find_or_create_by!(start: Time.now + 7.days,
+      duration: (arrival_airport.id - departing_airport.id).abs,
+      departure_airport_id: departing_airport.id,
+      arrival_airport_id: arrival_airport.id)
+  end
+end
