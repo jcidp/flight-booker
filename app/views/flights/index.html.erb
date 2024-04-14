@@ -18,7 +18,7 @@
 <% if !@flights.exists? && params.has_key?(:start) %>
   <p>No flights available :(</p>
   <p>Try searching with different parameters</p>
-<% else %>
+<% elsif @flights.exists? %>
   <p>Showing results for flights:</p>
   <ul>
     <li>From: <%= @flights.first.departure_airport.code %></li>
@@ -26,7 +26,8 @@
     <li>Date: <%= @flights.first.start.to_date %></li>
   </ul>
   <%= form_with url: "bookings/new", method: :get do |f| %>
-    <%= f.collection_radio_buttons :id, @flights, :id, :start_time %>
+    <%= f.hidden_field :passengers, value: params[:passengers] %>
+    <%= f.collection_radio_buttons :flight_id, @flights, :id, :start_time %>
     <br>
     <%= f.submit "Book flight" %>
   <% end %>
