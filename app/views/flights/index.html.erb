@@ -25,7 +25,7 @@
     <li>To: <%= @flights.first.arrival_airport.code %></li>
     <li>Date: <%= @flights.first.start.to_date %></li>
   </ul>
-  <%= form_with url: "booking/new", method: :get do |f| %>
+  <%= form_with url: "bookings/new", method: :get do |f| %>
     <%= f.collection_radio_buttons :id, @flights, :id, :start_time %>
     <br>
     <%= f.submit "Book flight" %>
