@@ -1,0 +1,30 @@
+<h1>Book a flight</h1>
+<%= form_with method: :get do |f| %>
+  <%= f.label :departure_airport_id %>
+  <%= f.select :departure_airport_id, @airport_options %>
+  <br>
+  <%= f.label :arrival_airport_id %>
+  <%= f.select :arrival_airport_id, @airport_options %>
+  <br>
+  <%= f.label :start, "Date" %>
+  <%= f.select :start, @date_options %>
+  <br>
+  <%= f.label :passengers, "Number of passenger" %>
+  <%= f.select :passengers, 4.times.map { |i| [i+1, i+1]} %>
+  <br>
+  <%= f.submit "Find flight" %>
+<% end %>
+
+<% if !@flights.exists? && params.has_key?(:start) %>
+  <p>No flights available :(</p>
+  <p>Try searching with different parameters</p>
+<% else %>
+  <% @flights.each do |flight| %>
+    <div>
+      <p>Date: <%= flight.start.to_date %></p>
+      <p>Time: <%= flight.start.strftime("%H:%M %Z") %></p>
+      <p>From: <%= flight.departure_airport.code %></p>
+      <p>To: <%= flight.arrival_airport.code %></p>
+    </div>
+  <% end %>
+<% end %>
