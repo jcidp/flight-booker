@@ -7,18 +7,38 @@
     <li>Time: <%= @flight.start_time %></li>
 </ul>
 <h2>Passengers</h2>
+<% if @booking.errors.any? %>
+  <div id="error_explanation">
+    <h3><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h3>
+
+
+    <ul>
+      <% @booking.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: @booking do |f| %>
   <%= f.hidden_field :flight_id, value: @booking.flight_id %>
-  <%= f.fields_for :passengers do |p| %>
-    <div>
-      <%= p.label :name %>
-      <%= p.text_field :name %>
-      <br>
-      <%= p.label :email %>
-      <%= p.email_field :email %>
-      <br>
-    </div>
-    <br>
-  <% end %>
+  <div data-controller="passengers">
+      <div data-passengers-target="passengers" class="passengers">
+        <%= f.fields_for :passengers do |p| %>
+          <div class="passenger">
+            <%= p.label :name %>
+            <%= p.text_field :name %>
+            <br>
+            <%= p.label :email %>
+            <%= p.email_field :email %>
+            <br>
+            <br>
+          </div>
+        <% end %>
+      </div>
+    <button data-action="passengers#add:prevent">Add passenger</button>
+    <button data-action="passengers#remove:prevent">Remove last passenger</button>
+  </div>
+  <br>
   <%= f.submit "Book" %>
 <% end %>
