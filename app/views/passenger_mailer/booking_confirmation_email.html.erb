@@ -1,0 +1,14 @@
+<h1>Your flight from <%= @flight.departure_airport.code %> to <%= @flight.arrival_airport.code %> is booked!</h1>
+<p>Please review your booking details below:</p>
+<ul>
+  <li>Booking id: <%= @booking.id %></li>
+  <li>From: <%= @flight.departure_airport.code %></li>
+  <li>To: <%= @flight.arrival_airport.code %></li>
+  <li>Date: <%= @flight.start.to_date %></li>
+  <li>Time: <%= @flight.start_time %></li>
+</ul>
+<p>If you have any questions, you can contact use at support@example.com </p>
+<a href=<%= booking_url @booking.id %>>View you booking on our website.</a>
+<br>
+<br>
+<%= image_tag "https://media.giphy.com/media/P1PemPnyp4g1i/giphy.gif", alt: "Man waving arms imitating a bird flying"%>

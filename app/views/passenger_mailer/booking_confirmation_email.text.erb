@@ -1,0 +1,13 @@
+Your flight from <%= @flight.departure_airport.code %> to <%= @flight.arrival_airport.code %> is booked!
+
+Please review your booking details below:
+- Booking id:  <%= @booking.id %>
+- From: <%= @flight.departure_airport.code %>
+- To: <%= @flight.arrival_airport.code %>
+- Date: <%= @flight.start.to_date %>
+- Time: <%= @flight.start_time %>
+
+If you have any questions, you can contact use at support@example.com
+
+View you booking on our website:
+<%= booking_url @booking.id %>
