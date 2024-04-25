@@ -19,12 +19,7 @@
   <p>No flights available :(</p>
   <p>Try searching with different parameters</p>
 <% elsif @flights.exists? %>
-  <p>Showing results for flights:</p>
-  <ul>
-    <li>From: <%= @flights.first.departure_airport.code %></li>
-    <li>To: <%= @flights.first.arrival_airport.code %></li>
-    <li>Date: <%= @flights.first.start.to_date %></li>
-  </ul>
+  <%= render partial: "shared/flight_details", locals: {flight: @flights.first, hide_time: true} %>
   <%= form_with url: "bookings/new", method: :get do |f| %>
     <%= f.hidden_field :passengers, value: params[:passengers] %>
     <%= f.collection_radio_buttons :flight_id, @flights, :id, :start_time %>

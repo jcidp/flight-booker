@@ -1,11 +1,5 @@
 <h1>New booking</h1>
-<h2>Flight details</h2>
-<ul>
-    <li>From: <%= @flight.departure_airport.code %></li>
-    <li>To: <%= @flight.arrival_airport.code %></li>
-    <li>Date: <%= @flight.start.to_date %></li>
-    <li>Time: <%= @flight.start_time %></li>
-</ul>
+<%= render partial: "shared/flight_details", locals: {flight: @flight, hide_time: false} %>
 <h2>Passengers</h2>
 <% if @booking.errors.any? %>
   <div id="error_explanation">

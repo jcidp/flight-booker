@@ -1,0 +1,13 @@
+<% if hide_time %>
+  <p>Showing results for flights:</p>
+<% else %>
+  <h2>Flight details</h2>
+<% end %>
+<ul>
+    <li>From: <%= flight.departure_airport.code %></li>
+    <li>To: <%= flight.arrival_airport.code %></li>
+    <li>Date: <%= flight.start.to_date %></li>
+    <% unless hide_time %>
+      <li>Time: <%= flight.start_time %></li>
+    <% end %>
+</ul>
